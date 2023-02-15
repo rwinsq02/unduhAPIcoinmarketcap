@@ -11,7 +11,7 @@ headers = {
 }
 parameters = {
     'symbol': 'BTC',
-    'convert': 'IDR'
+    
 }
 
 # connect to the MySQL database
@@ -25,15 +25,18 @@ mydb = mysql.connector.connect(
 # make a request to the API every 10 seconds and save the Bitcoin price to the database
 while True:
     response = requests.get(url, headers=headers, params=parameters)
-    if response.status_code == 200:
-        data = response.json()
-        btc_price = data['data']['BTC']['quote']['IDR']['price']
-        print(f'Harga Bitcoin saat ini adalah: {btc_price} IDR')
-
+if response.status_code == 200:
+    data = response.json()
+    btc_price = data['data']['BTC']['quote']['IDR']['price']
+    last_updated = data['data']['BTC']['quote']['IDR']['last_updated']
+    print(f"Nilai Bitcoin saat ini: {btc_price} IDR")
+    print(f"Waktu terakhir diperbarui: {datetime.fromisoformat(last_updated).strftime('%Y-%m-%d %H:%M:%S')}")
+else:
+    print("Gagal memuat data nilai Bitcoin")
         # save the Bitcoin price to the database
+         sql = "INSERT INTO btc_price (price, last_updated) VALUES (%s, %s)"
+    val = (btc_price, last_updated)
         mycursor = mydb.cursor()
-        sql = "INSERT INTO bitcoin_prices (price, timestamp) VALUES (%s, %s)"
-        val = (btc_price, time.time())
         mycursor.execute(sql, val)
         mydb.commit()
         print(mycursor.rowcount, "record inserted.")
