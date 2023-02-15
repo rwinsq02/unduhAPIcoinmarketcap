@@ -111,41 +111,4 @@ while True:
 
         print('Gagal mengambil data API')
 
-    time.sleep(300)  # wait for 10 seconds before making the next request
-        
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-            
-
-        
-
-
-
-    
-
-    
-
-        
-
-        
-
-        
-
-
-    
-
-    
-
+    time.sleep(300)  # wait 
