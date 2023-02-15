@@ -10,7 +10,7 @@ parameters = {
   'symbol': 'BTC',
   'convert': 'IDR'
 }
-
+while True:
 response = requests.get(url, headers=headers, params=parameters)
 if response.status_code == 200:
     data = response.json()
