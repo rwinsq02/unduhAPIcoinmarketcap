@@ -19,7 +19,7 @@ mydb = mysql.connector.connect(
   host="localhost",
   user="root",
   password="",
-  database="dataapicoinmarketcap.db"
+  database="dataapicoinmarketcap"
 )
 
 # make a request to the API every 10 seconds and save the Bitcoin price to the database
