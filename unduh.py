@@ -11,7 +11,7 @@ headers = {
 }
 parameters = {
     'symbol': 'BTC',
-    'convert': 'none'
+    'convert': 'USD'
 }
 
 # connect to the MySQL database
@@ -32,7 +32,7 @@ while True:
     if response.status_code == 200:
         data = response.json()
         btc_price = data['data']['BTC']['quote']['USD']['price']
-        print(f'Harga Bitcoin saat ini adalah: {btc_price} USD')
+        print(f'{last_updated}{btc_price} USD')
 
         # save the Bitcoin price to the database
         mycursor = mydb.cursor()
