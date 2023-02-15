@@ -1,7 +1,4 @@
-
-
-
-    import requests
+import requests
 import time
 
 while True:
@@ -10,7 +7,7 @@ while True:
 
     # Tambahkan parameter API key ke header permintaan
     headers = {
-        "X-CMC_PRO_API_KEY": "7152156b-9a3a-452f-8970-d6559e95c368"
+     "X-CMC_PRO_API_KEY": "7152156b-9a3a-452f-8970-d6559e95c368"
     }
 
     parameters = { 'symbol': 'BTC', 'convert': 'IDR' }
