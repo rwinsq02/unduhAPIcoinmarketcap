@@ -2,6 +2,7 @@ import requests
 import json
 import time
 import mysql.connector
+from datetime import datetime
 
 # set up the request parameters
 url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
@@ -22,19 +23,16 @@ mydb = mysql.connector.connect(
   database="dataapicoinmarketcap"
 )
 
-# define function to get current timestamp
-def last_updated():
-    return int(time.time())
-
 # make a request to the API every 5 minutes and save the Bitcoin price to the database
 while True:
     response = requests.get(url, headers=headers, params=parameters)
     if response.status_code == 200:
         data = response.json()
-        btc_price = data['data']['BTC']['quote']['USD']['price']
+        btc_price = round(data['data']['BTC']['quote']['USD']['price'], 2)
         last_updated = data['data']['BTC']['quote']['USD']['last_updated']
-        
-        print(f'Harga Bitcoin saat ini adalah: {btc_price} pada {last_updated}')
+        last_updated = datetime.strptime(last_updated, '%Y-%m-%dT%H:%M:%S.%fZ').strftime('%Y-%m-%d %H:%M:%S')
+
+        print(f'Harga Bitcoin saat ini adalah: {btc_price} USD pada {last_updated}')
 
         # save the Bitcoin price to the database
         mycursor = mydb.cursor()
