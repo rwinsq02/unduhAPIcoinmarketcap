@@ -25,7 +25,7 @@ mydb = mysql.connector.connect(
 # define function to get current timestamp
 def last_updated():
     return int(time.time())
-last_updated = last_updated()
+
 # make a request to the API every 5 minutes and save the Bitcoin price to the database
 while True:
     response = requests.get(url, headers=headers, params=parameters)
@@ -36,12 +36,10 @@ while True:
         
         print(f'Harga Bitcoin saat ini adalah: {btc_price} pada {last_updated}')
 
-        
-
         # save the Bitcoin price to the database
         mycursor = mydb.cursor()
         sql = "INSERT INTO bitcoin_prices (price, last_updated) VALUES (%s, %s)"
-        val = (btc_price, last_updated())
+        val = (btc_price, last_updated)
         mycursor.execute(sql, val)
         mydb.commit()
         print(mycursor.rowcount, "record inserted.")
