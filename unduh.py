@@ -2,6 +2,7 @@ import requests
 import json
 import time
 import mysql.connector
+from datetime import datetime
 
 # set up the request parameters
 url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
@@ -22,14 +23,14 @@ mydb = mysql.connector.connect(
   database="dataapicoinmarketcap"
 )
 
-# make a request to the API every 10 seconds and save the Bitcoin price to the database
+# make a request to the API every 6 minute and save the Bitcoin price to the database
 while True:
     response = requests.get(url, headers=headers, params=parameters)
 if response.status_code == 200:
     data = response.json()
-    btc_price = data['data']['BTC']['quote']['IDR']['price']
-    last_updated = data['data']['BTC']['quote']['IDR']['last_updated']
-    print(f"Nilai Bitcoin saat ini: {btc_price} IDR")
+    btc_price = data['data']['BTC']['quote']['price']
+    last_updated = data['data']['BTC']['quote']['last_updated']
+    print(f"Nilai Bitcoin saat ini: {btc_price} ")
     print(f"Waktu terakhir diperbarui: {datetime.fromisoformat(last_updated).strftime('%Y-%m-%d %H:%M:%S')}")
 else:
     print("Gagal memuat data nilai Bitcoin")
