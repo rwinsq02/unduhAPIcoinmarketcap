@@ -6,7 +6,7 @@ import time
 url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
 headers = {
     'Accepts': 'application/json',
-    'X-CMC_PRO_API_KEY': 'your-api-key'
+    'X-CMC_PRO_API_KEY': '7152156b-9a3a-452f-8970-d6559e95c368'
 }
 parameters = {
     'symbol': 'BTC',
