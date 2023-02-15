@@ -3,6 +3,8 @@ import json
 import time
 import mysql.connector
 
+last_updated = last_updated(last_updated)
+
 # set up the request parameters
 url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
 headers = {
@@ -33,8 +35,7 @@ while True:
         data = response.json()
         btc_price = data['data']['BTC']['quote']['USD']['price']
         last_updated = data['data']['BTC']['quote']['USD']['last_updated']
-        last_updated = last_updated(last_updated)
-
+        
         print(f'Harga Bitcoin saat ini adalah: {btc_price} pada {last_updated}')
 
         
