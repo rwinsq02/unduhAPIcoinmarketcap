@@ -12,7 +12,6 @@ headers = {
 parameters = {
 
     'symbol': 'BTC',
-
     'convert': 'none'
 }
 # Connect to the database
@@ -38,41 +37,112 @@ try:
         # Get the Bitcoin data from the API
 
         response = requests.get(url, headers=headers, params=parameters)
+import requests
 
-        if response.status_code == 200:
+import json
 
-            data = response.json()
+import time
 
-            btc_price = data['data']['BTC']['quote']['USD']['price']
+import mysql.connector
 
-            last_updated = data['data']['BTC']['quote']['USD']['last_updated']
+# set up the request parameters
 
-            print("Price of BTC is:", btc_price, "Last updated:", last_updated)
+url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
 
-            val = (btc_price, last_updated)
+headers = {
 
-            mycursor.execute(sql, val)
+    'Accepts': 'application/json',
 
-            mydb.commit()
+    'X-CMC_PRO_API_KEY': '7152156b-9a3a-452f-8970-d6559e95c368'
 
-            print(mycursor.rowcount, "record inserted.")
+}
 
-        time.sleep(300) # Wait for 5 minutes
+parameters = {
 
-except Error as e:
+    'symbol': 'BTC',
 
-    print("Error while connecting to MySQL", e)
+    'convert': 'none'
 
-finally:
+}
 
-    if (mydb.is_connected()):
+# connect to the MySQL database
 
-        mycursor.close()
+mydb = mysql.connector.connect(
 
-        mydb.close()
+  host="localhost",
 
-        print("MySQL connection is closed")
+  user="root",
 
+  password="",
+
+  database="dataapicoinmarketcap"
+
+)
+
+# make a request to the API every 6 minutes and save the Bitcoin price to the database
+
+while True:
+
+    response = requests.get(url, headers=headers, params=parameters)
+
+    if response.status_code == 200:
+
+        data = response.json()
+
+        btc_price = data['data']['BTC']['quote']['IDR']['price']
+
+        print(f'Harga Bitcoin saat ini adalah: {btc_price} ')
+
+        # save the Bitcoin price to the database
+
+        mycursor = mydb.cursor()
+
+        sql = "INSERT INTO bitcoin_prices (price, last_updated) VALUES (%s, %s)"
+
+        val = (btc_price, last_updated())
+
+        mycursor.execute(sql, val)
+
+        mydb.commit()
+
+        print(mycursor.rowcount, "record inserted.")
+
+    else:
+
+        print('Gagal mengambil data API')
+
+    time.sleep(300)  # wait for 10 seconds before making the next request
+        
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+            
+
+        
+
+
+
+    
+
+    
+
+        
+
+        
+
+        
 
 
     
