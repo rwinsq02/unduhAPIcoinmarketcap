@@ -1,40 +1,28 @@
 import requests
+import json
 import mysql.connector
 from mysql.connector import Error
 import time
-
-url = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest"
-
+url = 'https://pro-api.coinmarketcap.com/v1/cryptocurrency/quotes/latest'
 headers = {
+    'Accepts': 'application/json',
 
-    "Accepts": "application/json",
-
-    "X-CMC_PRO_API_KEY": "7152156b-9a3a-452f-8970-d6559e95c368"
-
-}
-
+    'X-CMC_PRO_API_KEY': '7152156b-9a3a-452f-8970-d6559e95c368'
+}   
 parameters = {
 
-    "symbol": "BTC",
+    'symbol': 'BTC',
 
-    "convert": "none"
-
+    'convert': 'none'
 }
-
 # Connect to the database
 
 try:
-
     mydb = mysql.connector.connect(
-
         host="localhost",
-
         user="root",
-
-        password="",
-
+       password="",
         database="dataapicoinmarketcap"
-
     )
 
     mycursor = mydb.cursor()
