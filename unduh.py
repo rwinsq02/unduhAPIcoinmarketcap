@@ -32,7 +32,7 @@ while True:
     if response.status_code == 200:
         data = response.json()
         btc_price = data['data']['BTC']['quote']['USD']['price']
-        last_updated = data['data']['BTC']['quote']['IDR']['last_updated']
+        last_updated = data['data']['BTC']['quote']['USD']['last_updated']
         last_updated = last_updated(last_updated)
 
         print(f'Harga Bitcoin saat ini adalah: {btc_price} pada {last_updated}')
