@@ -41,7 +41,7 @@ try:
 
     # Insert data into the table
 
-    sql = "INSERT INTO btc_price (price, last_updated) VALUES (%s, %s)"
+    sql = "INSERT INTO bitcoin_prices (price, last_updated) VALUES (%s, %s)"
 
     
 
