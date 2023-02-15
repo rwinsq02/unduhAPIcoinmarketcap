@@ -32,7 +32,7 @@ while True:
     response = requests.get(url, headers=headers, params=parameters)
     if response.status_code == 200:
         data = response.json()
-        btc_price = round(data['data']['BTC']['quote']['USD']['price'], 4)
+        btc_price = round(data['data']['BTC']['quote']['USD']['price'], 7)
         last_updated = data['data']['BTC']['quote']['USD']['last_updated']
         last_updated_dt = datetime.strptime(last_updated, '%Y-%m-%dT%H:%M:%S.%fZ')
         last_updated_dt += timedelta(hours=7) # convert to GMT+7
