@@ -17,9 +17,8 @@ parameters = {
 # connect to the MySQL database
 mydb = mysql.connector.connect(
   host="localhost",
-  port="3306",
-  user="rwinsq02",
-  password="qwerty",
+  user="root",
+  password="",
   database="dataapicoinmarketcap.db"
 )
 
